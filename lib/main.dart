@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bmi_calculator/screens/input_page.dart';
 
-void main() => runApp(BMICalculator());
+void main() => runApp(streaksApp());
 
-class BMICalculator extends StatelessWidget {
+class streaksApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
