@@ -9,12 +9,13 @@ import 'package:streaksApp/components/round_icon_button.dart';
 import 'package:streaksApp/calculator_brain.dart';
 
 
-class InputPage extends StatefulWidget {
+class TasksPage extends StatefulWidget {
   @override
-  _InputPageState createState() => _InputPageState();
+  static const String id = 'TasksPage';
+  _TasksPageState createState() => _TasksPageState();
 }
 
-class _InputPageState extends State<InputPage> {
+class _TasksPageState extends State<TasksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +28,8 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: 'Add Habit',
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResultsPage(
-                    bmiResult: calc.calculateBMI(),
-                    resultText: calc.getResult(),
-                    interpretation: calc.getInterpretation(),
-                  ),
-                ),
-              );
+
+              //navigator.push
             },
           ),
         ],

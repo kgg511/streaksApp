@@ -10,12 +10,13 @@ import 'package:streaksApp/calculator_brain.dart';
 
 
 
-class InputPage extends StatefulWidget {
+class AddHabitPage extends StatefulWidget {
+  static const String id = 'AddHabitPage';
   @override
-  _InputPageState createState() => _InputPageState();
+  _AddHabitPageState createState() => _AddHabitPageState();
 }
 
-class _InputPageState extends State<InputPage> {
+class _AddHabitPageState extends State<AddHabitPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +30,7 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: 'Add Habit',
             onTap: () {
-              CalculatorBrain calc =
-              CalculatorBrain(height: height, weight: weight);
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResultsPage(
-                    bmiResult: calc.calculateBMI(),
-                    resultText: calc.getResult(),
-                    interpretation: calc.getInterpretation(),
-                  ),
-                ),
-              );
             },
           ),
         ],
