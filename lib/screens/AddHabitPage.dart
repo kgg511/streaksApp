@@ -9,17 +9,20 @@ import 'package:streaksApp/components/round_icon_button.dart';
 import 'package:streaksApp/calculator_brain.dart';
 
 
-class InputPage extends StatefulWidget {
+
+class AddHabitPage extends StatefulWidget {
+  static const String id = 'AddHabitPage';
   @override
-  _InputPageState createState() => _InputPageState();
+  _AddHabitPageState createState() => _AddHabitPageState();
 }
 
-class _InputPageState extends State<InputPage> {
+class _AddHabitPageState extends State<AddHabitPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MY HABITS'),
+        title: Text('BMI CALCULATOR'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,16 +30,7 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: 'Add Habit',
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResultsPage(
-                    bmiResult: calc.calculateBMI(),
-                    resultText: calc.getResult(),
-                    interpretation: calc.getInterpretation(),
-                  ),
-                ),
-              );
+
             },
           ),
         ],
