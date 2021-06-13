@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:streaksApp/constants.dart';
 import 'package:streaksApp/components/bottom_button.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
-
+import 'package:streaksApp/screens/TasksPage.dart';
+import 'package:streaksApp/streak.dart';
+import 'package:streaksApp/constants.dart';
 
 
 class AddHabitPage extends StatefulWidget {
@@ -67,6 +69,7 @@ class _AddHabitPageState extends State<AddHabitPage> {
           BottomButton(
             buttonTitle: 'Add Habit',
             onTap: () {
+              Navigator.pushNamed(context, TasksPage.id);
 
             },
           ),

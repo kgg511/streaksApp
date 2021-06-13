@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:streaksApp/components/icon_content.dart';
 import 'package:streaksApp/components/reusable_card.dart';
 import 'package:streaksApp/constants.dart';
+import 'package:streaksApp/screens/AddHabitPage.dart';
 import 'package:streaksApp/screens/results_page.dart';
 import 'package:streaksApp/components/bottom_button.dart';
 import 'package:streaksApp/components/round_icon_button.dart';
@@ -30,9 +31,11 @@ class _TasksPageState extends State<TasksPage> {
           BottomButton(
             buttonTitle: 'Add Habit',
             onTap: () {
+              Navigator.pushNamed(context, AddHabitPage.id);
               //collects data
               setState(() {
                 streaks.add(streak(name: "test", number: 6,));
+                print('added');
               });
             },
           ),

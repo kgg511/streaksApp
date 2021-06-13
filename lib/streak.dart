@@ -1,8 +1,6 @@
 
 //when button is clicked and data is submitted, data should create a streak object
 
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 
@@ -21,7 +19,12 @@ class streak extends StatelessWidget {
     return Container(
       child: Row(
         children: <Widget>[
-          Text(number.toString()),//just testing the row widget. Still need to add button
+          Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Text(number.toString(),
+            ),
+          ),//just testing the row widget. Still need to add button
+
           Text(name),
 
         ],
