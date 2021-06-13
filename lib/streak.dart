@@ -10,8 +10,8 @@ class streak extends StatelessWidget {
 
   streak({this.name, this.number}){}
   //Color color;
-  int name; //name of the streak
-  String number;//number of days they have continued the streak
+  String name; //name of the streak
+  int number;//number of days they have continued the streak
 
   //it should return a row
 
@@ -21,8 +21,8 @@ class streak extends StatelessWidget {
     return Container(
       child: Row(
         children: <Widget>[
-          Text(number),//just testing the row widget. Still need to add button
-          Text(name.toString()),
+          Text(number.toString()),//just testing the row widget. Still need to add button
+          Text(name),
 
         ],
       ),

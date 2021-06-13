@@ -32,7 +32,7 @@ class _TasksPageState extends State<TasksPage> {
             onTap: () {
               //collects data
               setState(() {
-                streaks.add(streak(name: , number: ,));
+                streaks.add(streak(name: "test", number: 6,));
               });
             },
           ),

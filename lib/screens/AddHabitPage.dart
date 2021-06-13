@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:streaksApp/components/icon_content.dart';
-import 'package:streaksApp/components/reusable_card.dart';
 import 'package:streaksApp/constants.dart';
-import 'package:streaksApp/screens/results_page.dart';
 import 'package:streaksApp/components/bottom_button.dart';
-import 'package:streaksApp/components/round_icon_button.dart';
-import 'package:streaksApp/calculator_brain.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 
 
 
@@ -17,16 +13,57 @@ class AddHabitPage extends StatefulWidget {
 }
 
 class _AddHabitPageState extends State<AddHabitPage> {
+  static Color screenPickerColor;
+
+  @override
+  void initState() {
+    super.initState();
+    screenPickerColor = Colors.blue;  // Material blue.
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI CALCULATOR'),
+        title: Text('ADD HABIT'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          const TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Habit',
+            ),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(6),
+              child: Card(
+                elevation: 2,
+                child: ColorPicker(
+                  // Use the screenPickerColor as start color.
+                  color: screenPickerColor,
+                  // Update the screenPickerColor using the callback.
+                  onColorChanged: (Color color) =>
+                      setState(() => screenPickerColor = color),
+                  width: 44,
+                  height: 44,
+                  borderRadius: 22,
+                  heading: Text(
+                    'Select color',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  subheading: Text(
+                    'Select color shade',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+              ),
+            ),
+          ),
           BottomButton(
             buttonTitle: 'Add Habit',
             onTap: () {
