@@ -73,7 +73,7 @@ class _AddHabitPageState extends State<AddHabitPage> {
           BottomButton(
             buttonTitle: 'Add Habit',
             onTap: () {
-              Navigator.pushNamed(context, TasksPage.id);
+              Navigator.pop(context);
 
             },
           ),
