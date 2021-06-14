@@ -4,12 +4,13 @@
 import 'package:flutter/material.dart';
 
 
-class streak extends StatelessWidget {
+class StreakRow extends StatelessWidget {
 
-  streak({this.name, this.number}){}
+  StreakRow({this.name, this.number}){}
   //Color color;
   String name; //name of the streak
-  int number;//number of days they have continued the streak
+  int number; //number of days they have continued the streak
+  var start; // starting date of the streak
 
   //it should return a row
 

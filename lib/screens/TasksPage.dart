@@ -8,7 +8,7 @@ import 'package:streaksApp/screens/results_page.dart';
 import 'package:streaksApp/components/bottom_button.dart';
 import 'package:streaksApp/components/round_icon_button.dart';
 import 'package:streaksApp/calculator_brain.dart';
-import 'package:streaksApp/streak.dart';
+import 'package:streaksApp/StreakRow.dart';
 
 
 class TasksPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  List<streak> streaks = [];
+  List<StreakRow> streaks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _TasksPageState extends State<TasksPage> {
               Navigator.pushNamed(context, AddHabitPage.id);
               //collects data
               setState(() {
-                streaks.add(streak(name: "test", number: 6,));
+                streaks.add(StreakRow(name: "test", number: 6,));
                 print('added');
               });
             },
