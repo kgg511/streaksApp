@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart'; //missing file
 import 'package:streaksApp/components/rounded_button.dart';
 import 'package:streaksApp/screens/TasksPage.dart';
+import 'package:streaksApp/DatabaseHandler.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';

@@ -9,7 +9,8 @@ import 'package:streaksApp/components/bottom_button.dart';
 import 'package:streaksApp/components/round_icon_button.dart';
 import 'package:streaksApp/calculator_brain.dart';
 import 'package:streaksApp/StreakRow.dart';
-
+import 'package:streaksApp/DatabaseHandler.dart';
+import 'package:streaksApp/Streak.dart';
 
 class TasksPage extends StatefulWidget {
   @override
@@ -18,7 +19,17 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  List<StreakRow> streaks = [];
+  List<StreakRow> streaks = []; //reads the database to fill itself?
+  DatabaseHandler handler; //database
+
+  @override
+  void initState() {
+    super.initState();
+    //where to initialize the database?!
+    this.handler = DatabaseHandler();
+    this.handler.initializeDB(); //create database
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +44,7 @@ class _TasksPageState extends State<TasksPage> {
             onTap: () {
               Navigator.pushNamed(context, AddHabitPage.id);
               //collects data
-              setState(() {
+              setState(() {//just a test. The AddHabitPage is actually in charge of this
                 streaks.add(StreakRow(name: "test", number: 6,));
                 print('added');
               });
@@ -52,16 +63,3 @@ class _TasksPageState extends State<TasksPage> {
 
 
 
-//<Widget>[
-//
-//          BottomButton(
-//            buttonTitle: 'Add Habit',
-//            onTap: () {
-//              //navigator.push
-//              //collects data
-//              setState(() {
-//                streaks.add(streak(name: , number: ,));
-//              });
-//            },
-//          ),
-//        ],

@@ -9,7 +9,7 @@ class DatabaseHandler {
       join(path, 'example.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL,age INTEGER NOT NULL, country TEXT NOT NULL, email TEXT)",
+          "CREATE TABLE streakTable(length INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, start INTEGER NOT NULL, color TEXT NOT NULL)",
         );
       },
       version: 1,
@@ -20,14 +20,14 @@ class DatabaseHandler {
     int result = 0;
     final Database db = await initializeDB();
     for(var s in streaks){
-      result = await db.insert('users', s.toMap());
+      result = await db.insert('streakTable', s.toMap());
     }
     return result;
   }
 
   Future<List<Streak>> retrieveStreaks() async {
     final Database db = await initializeDB();
-    final List<Map<String, Object>> queryResult = await db.query('streaks');
+    final List<Map<String, Object>> queryResult = await db.query('streakTable');
     return queryResult.map((e) => Streak.fromMap(e)).toList();
   }
 
