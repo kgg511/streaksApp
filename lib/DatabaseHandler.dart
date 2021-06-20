@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:streaksApp/Streak.dart';
+import 'package:flutter/widgets.dart';
 
 class DatabaseHandler {
   //make singleton database class so that the database can only be made once
@@ -14,6 +15,7 @@ class DatabaseHandler {
 
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
+    print(path);
     return openDatabase(
       join(path, 'example.db'),
       onCreate: (database, version) async {

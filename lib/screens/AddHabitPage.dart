@@ -12,6 +12,7 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
+import 'package:flutter/widgets.dart';
 
 
 class AddHabitPage extends StatefulWidget {
@@ -32,9 +33,11 @@ class _AddHabitPageState extends State<AddHabitPage> {
   void initState() {
     super.initState();
 
+
     screenPickerColor = Colors.blue;  // Material blue.
     this.handlerAHP = DatabaseHandler();
     this.handlerAHP.initializeDB(); //create database
+    WidgetsFlutterBinding.ensureInitialized();
   }
 
   @override
@@ -88,8 +91,9 @@ class _AddHabitPageState extends State<AddHabitPage> {
                 habitName = nameCon.text;
                 print(habitName); //next: make an object with the data/insert into database
               });
-              Streak s = Streak(length: 0, name: habitName, start: DateTime.now()); //make streak object
+              Streak s = Streak(length: 0, col: screenPickerColor,  name: habitName, start: DateTime.now()); //make streak object
               List<Streak> streakTest = [s]; //put streak in a list for the insert method. Fix later
+              handlerAHP.insertStreak(streakTest);
 
               Navigator.pop(context);
             },

@@ -11,6 +11,7 @@ import 'package:streaksApp/calculator_brain.dart';
 import 'package:streaksApp/components/StreakRow.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 import 'package:streaksApp/Streak.dart';
+import 'package:flutter/widgets.dart';
 
 class TasksPage extends StatefulWidget {
   @override
@@ -28,6 +29,7 @@ class _TasksPageState extends State<TasksPage> {
     //where to initialize the database?!
     this.handler = DatabaseHandler();
     this.handler.initializeDB(); //create database
+    WidgetsFlutterBinding.ensureInitialized();
 
   }
 
