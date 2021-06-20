@@ -2,6 +2,7 @@ import 'package:streaksApp/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:streaksApp/screens/TasksPage.dart';
 import 'package:streaksApp/screens/AddHabitPage.dart';
+import 'package:streaksApp/DatabaseHandler.dart';
 
 import 'package:streaksApp/DatabaseHandler.dart';
 
