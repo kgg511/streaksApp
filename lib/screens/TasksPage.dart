@@ -8,14 +8,9 @@ import 'package:streaksApp/screens/results_page.dart';
 import 'package:streaksApp/components/bottom_button.dart';
 import 'package:streaksApp/components/round_icon_button.dart';
 import 'package:streaksApp/calculator_brain.dart';
-<<<<<<< HEAD
 import 'package:streaksApp/components/StreakRow.dart';
-
-=======
-import 'package:streaksApp/StreakRow.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 import 'package:streaksApp/Streak.dart';
->>>>>>> 10f17d50c8e5d9f92db13afeb58d3687a9e5a74a
 
 class TasksPage extends StatefulWidget {
   @override
