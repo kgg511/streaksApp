@@ -25,12 +25,16 @@ class _AddHabitPageState extends State<AddHabitPage> {
   String habitName;
   final nameCon = TextEditingController();//controller for habit name
 
+  DatabaseHandler handlerAHP; //database
+
 
   @override
   void initState() {
     super.initState();
 
     screenPickerColor = Colors.blue;  // Material blue.
+    this.handlerAHP = DatabaseHandler();
+    this.handlerAHP.initializeDB(); //create database
   }
 
   @override

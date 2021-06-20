@@ -3,6 +3,15 @@ import 'package:path/path.dart';
 import 'package:streaksApp/Streak.dart';
 
 class DatabaseHandler {
+  //make singleton database class so that the database can only be made once
+  static final DatabaseHandler _singleton = DatabaseHandler._internal();
+
+  factory DatabaseHandler() {
+    return _singleton;
+  }
+  DatabaseHandler._internal();
+
+
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
