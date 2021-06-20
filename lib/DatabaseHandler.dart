@@ -17,10 +17,10 @@ class DatabaseHandler {
     String path = await getDatabasesPath();
     print(path);
     return openDatabase(
-      join(path, 'streaks.db'),
+      join(path, 'streaks2.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE streakTable(name TEXT PRIMARY KEY, length INTEGER)",
+          "CREATE TABLE streakTable(name TEXT PRIMARY KEY, length INTEGER, start INTEGER, col INTEGER)",
         );
       },
       version: 1,
@@ -46,6 +46,8 @@ class DatabaseHandler {
       return Streak(
         length: queryResult[i]['length'],
         name: queryResult[i]['name'],
+        start: queryResult[i]['start'],
+        col: queryResult[i]['col'],
       );
     });
   }

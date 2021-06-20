@@ -47,7 +47,9 @@ class _TasksPageState extends State<TasksPage> {
               print("Grabbing streaks");
               List streakss = await handler.retrieveStreaks();
               print(streakss.length);
-              print(streakss[0].toMap());
+              for(int i = 0; i < streakss.length; i++) {
+                print(streakss[i].toMap());
+              }
 
               Navigator.pushNamed(context, AddHabitPage.id);
               //collects data

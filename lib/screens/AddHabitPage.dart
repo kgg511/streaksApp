@@ -91,10 +91,10 @@ class _AddHabitPageState extends State<AddHabitPage> {
                 habitName = nameCon.text;
                 //print(habitName); //next: make an object with the data/insert into database
               });
-              Streak s = Streak(length: 0, name: habitName); //make streak object
-              s = Streak(length: 45, name: habitName);
+              Streak s = Streak(length: 0, name: habitName, start: (new DateTime.now()).millisecondsSinceEpoch, col: screenPickerColor.value); //make streak object
               List<Streak> streakTest = [s]; //put streak in a list for the insert method. Fix later
               handlerAHP.insertStreak(streakTest);
+              print("insert called");
               /*
               print("Grabbing streaks");
               List streakss = await handlerAHP.retrieveStreaks();
