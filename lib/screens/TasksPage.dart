@@ -8,7 +8,7 @@ import 'package:streaksApp/screens/results_page.dart';
 import 'package:streaksApp/components/bottom_button.dart';
 import 'package:streaksApp/components/round_icon_button.dart';
 import 'package:streaksApp/calculator_brain.dart';
-import 'package:streaksApp/StreakRow.dart';
+import 'package:streaksApp/components/StreakRow.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 import 'package:streaksApp/Streak.dart';
 

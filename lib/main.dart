@@ -4,9 +4,14 @@ import 'package:streaksApp/screens/TasksPage.dart';
 import 'package:streaksApp/screens/AddHabitPage.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 
+import 'package:streaksApp/DatabaseHandler.dart';
+
 void main() => runApp(streaksApp());
 
 class streaksApp extends StatelessWidget {
+  DatabaseHandler handler;
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,9 +25,9 @@ class streaksApp extends StatelessWidget {
 
       },
 
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData.light().copyWith(
         primaryColor: Color(0xFF0A0E21),
-        scaffoldBackgroundColor: Color(0xFF0A0E21),
+        scaffoldBackgroundColor: Color(0xFFFFFFFF),
       ),
 
     );

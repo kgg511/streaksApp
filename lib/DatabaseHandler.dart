@@ -40,4 +40,14 @@ class DatabaseHandler {
     return queryResult.map((e) => Streak.fromMap(e)).toList();
   }
 
+  Future<void> deleteStreak(int id) async {
+    final db = await initializeDB();
+    await db.delete(
+      'streaks',
+      where: "name = ?",
+      whereArgs: [id],
+    );
+  }
+
+
 }
