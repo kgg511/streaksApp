@@ -86,14 +86,24 @@ class _AddHabitPageState extends State<AddHabitPage> {
           ),
           BottomButton(
             buttonTitle: 'Add Habit',
-            onTap: () {
+            onTap: () async {
               setState(() {
                 habitName = nameCon.text;
-                print(habitName); //next: make an object with the data/insert into database
+                //print(habitName); //next: make an object with the data/insert into database
               });
-              Streak s = Streak(length: 0, col: screenPickerColor,  name: habitName, start: DateTime.now()); //make streak object
+              Streak s = Streak(length: 0, name: habitName); //make streak object
+              s = Streak(length: 45, name: habitName);
               List<Streak> streakTest = [s]; //put streak in a list for the insert method. Fix later
               handlerAHP.insertStreak(streakTest);
+              /*
+              print("Grabbing streaks");
+              List streakss = await handlerAHP.retrieveStreaks();
+              print(streakss.length);
+              for (s in streakss){
+                print(s.toMap());
+              }
+               */
+
 
               Navigator.pop(context);
             },

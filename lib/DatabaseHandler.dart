@@ -17,10 +17,10 @@ class DatabaseHandler {
     String path = await getDatabasesPath();
     print(path);
     return openDatabase(
-      join(path, 'example.db'),
+      join(path, 'streaks.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE streakTable(length INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, start INTEGER NOT NULL, color TEXT NOT NULL)",
+          "CREATE TABLE streakTable(name TEXT PRIMARY KEY, length INTEGER)",
         );
       },
       version: 1,
@@ -30,6 +30,7 @@ class DatabaseHandler {
   Future<int> insertStreak(List<Streak> streaks) async {
     int result = 0;
     final Database db = await initializeDB();
+
     for(var s in streaks){
       result = await db.insert('streakTable', s.toMap());
     }
@@ -39,7 +40,14 @@ class DatabaseHandler {
   Future<List<Streak>> retrieveStreaks() async {
     final Database db = await initializeDB();
     final List<Map<String, Object>> queryResult = await db.query('streakTable');
-    return queryResult.map((e) => Streak.fromMap(e)).toList();
+    //return queryResult.map((e) => Streak.fromMap(e)).toList();
+
+    return List.generate(queryResult.length, (i) {
+      return Streak(
+        length: queryResult[i]['length'],
+        name: queryResult[i]['name'],
+      );
+    });
   }
 
   Future<void> deleteStreak(int id) async {

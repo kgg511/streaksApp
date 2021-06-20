@@ -43,7 +43,12 @@ class _TasksPageState extends State<TasksPage> {
         children: [//**in order to display a list within a list, I embedded the column within another column
           BottomButton(
             buttonTitle: 'Add Habit',
-            onTap: () {
+            onTap: () async {
+              print("Grabbing streaks");
+              List streakss = await handler.retrieveStreaks();
+              print(streakss.length);
+              print(streakss[0].toMap());
+
               Navigator.pushNamed(context, AddHabitPage.id);
               //collects data
               setState(() {//just a test. The AddHabitPage is actually in charge of this
