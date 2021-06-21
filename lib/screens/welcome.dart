@@ -4,6 +4,8 @@ import 'package:streaksApp/components/rounded_button.dart';
 import 'package:streaksApp/screens/TasksPage.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:streaksApp/Streak.dart';
+import 'package:streaksApp/components/StreakRow.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -20,6 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   void initState() {
     super.initState();
+
 
     controller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);

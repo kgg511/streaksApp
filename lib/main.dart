@@ -16,8 +16,8 @@ class streaksApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //initialRoute: WelcomeScreen.id,
-      initialRoute: TasksPage.id,
+      initialRoute: WelcomeScreen.id,
+      //initialRoute: TasksPage.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         //LoginScreen.id: (context) => LoginScreen(),

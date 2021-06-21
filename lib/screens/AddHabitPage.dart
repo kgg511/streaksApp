@@ -26,7 +26,7 @@ class _AddHabitPageState extends State<AddHabitPage> {
   String habitName;
   final nameCon = TextEditingController();//controller for habit name
 
-  DatabaseHandler handlerAHP; //database
+  DatabaseHandler handler; //database
 
 
   @override
@@ -35,8 +35,8 @@ class _AddHabitPageState extends State<AddHabitPage> {
 
 
     screenPickerColor = Colors.blue;  // Material blue.
-    this.handlerAHP = DatabaseHandler();
-    this.handlerAHP.initializeDB(); //create database
+    this.handler = DatabaseHandler();
+    this.handler.initializeDB(); //create database
     WidgetsFlutterBinding.ensureInitialized();
   }
 
@@ -90,14 +90,16 @@ class _AddHabitPageState extends State<AddHabitPage> {
               setState(() {
                 habitName = nameCon.text;
                 //print(habitName); //next: make an object with the data/insert into database
+                Streak s = Streak(length: 0, name: habitName, start: (new DateTime.now()).millisecondsSinceEpoch, col: screenPickerColor.value); //make streak object
+                List<Streak> streakTest = [s]; //put streak in a list for the insert method. Fix later
+                handler.insertStreak(streakTest);
+                print("insert called");
+
               });
-              Streak s = Streak(length: 0, name: habitName, start: (new DateTime.now()).millisecondsSinceEpoch, col: screenPickerColor.value); //make streak object
-              List<Streak> streakTest = [s]; //put streak in a list for the insert method. Fix later
-              handlerAHP.insertStreak(streakTest);
-              print("insert called");
+
               /*
               print("Grabbing streaks");
-              List streakss = await handlerAHP.retrieveStreaks();
+              List streakss = await handler.retrieveStreaks();
               print(streakss.length);
               for (s in streakss){
                 print(s.toMap());
