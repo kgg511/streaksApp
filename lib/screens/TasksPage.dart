@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:streaksApp/components/icon_content.dart';
@@ -73,10 +72,19 @@ class _TasksPageState extends State<TasksPage> {
             },
           ),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: streaks, //the list of streak objects, each of which returns a row
-          ),
+        //final List<String> entries = <String>['A', 'B', 'C'];
+        //final List<int> colorCodes = <int>[600, 500, 100];
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: streaks.length,
+              itemBuilder: (BuildContext context, int index) {
+              return Container(
+                child: streaks[index],
+              );
+              }
+            ),
+          )
         ],
       ),
     );

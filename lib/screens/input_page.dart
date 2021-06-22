@@ -8,6 +8,7 @@ import 'package:streaksApp/components/bottom_button.dart';
 import 'package:streaksApp/components/round_icon_button.dart';
 import 'package:streaksApp/calculator_brain.dart';
 
+
 enum Gender {
   male,
   female,
