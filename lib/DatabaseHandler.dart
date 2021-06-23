@@ -20,7 +20,7 @@ class DatabaseHandler {
       join(path, 'streaks2.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE streakTable(name TEXT PRIMARY KEY, length INTEGER, start INTEGER, col INTEGER)",
+          "CREATE TABLE streakTable(id INTEGER PRIMARY KEY, name TEXT, length INTEGER, start INTEGER, col INTEGER)",
         );
       },
       version: 1,
