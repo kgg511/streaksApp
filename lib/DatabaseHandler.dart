@@ -52,13 +52,14 @@ class DatabaseHandler {
     });
   }
 
-  Future<void> deleteStreak(int id) async {
+  Future<void> deleteStreak(String id) async {
     final db = await initializeDB();
     await db.delete(
-      'streaks',
+      'streakTable',
       where: "name = ?",
       whereArgs: [id],
     );
+    print("Deleted");
   }
 
 

@@ -48,6 +48,64 @@ class _TasksPageState extends State<TasksPage> {
     });
   }
 
+  Widget slideLeftBackground() {
+    return Container(
+      color: Colors.red,
+      child: Align(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            Text(
+              " Delete",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+          ],
+        ),
+        alignment: Alignment.centerRight,
+      ),
+    );
+  }
+
+  Widget slideRightBackground() {
+    return Container(
+      color: Colors.green,
+      child: Align(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: 20,
+            ),
+            Icon(
+              Icons.edit,
+              color: Colors.white,
+            ),
+            Text(
+              " Edit",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+        alignment: Alignment.centerLeft,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,9 +137,25 @@ class _TasksPageState extends State<TasksPage> {
               padding: const EdgeInsets.all(8),
               itemCount: streaks.length,
               itemBuilder: (BuildContext context, int index) {
-              return Container(
-                child: streaks[index],
-              );
+                return Dismissible(
+                  child: Container(
+                    child: streaks[index],
+                  ),
+                    //direction: DismissDirection.endToStart,
+                    key: UniqueKey(),
+                  onDismissed: (DismissDirection direction){
+                    setState(() {
+                      //database removes item, then reinitialized
+                      handler.deleteStreak(streaks[index].name);
+                      print(streaks[index].name);
+                      initializeStreaks(6); //also needs to be in same place
+                    });
+                  },
+                  secondaryBackground: slideLeftBackground(),
+                  background: slideRightBackground(),
+
+                );
+
               }
             ),
           )
