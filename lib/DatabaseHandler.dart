@@ -17,7 +17,7 @@ class DatabaseHandler {
     String path = await getDatabasesPath();
     print(path);
     return openDatabase(
-      join(path, 'streaks2.db'),
+      join(path, 'streaks3.db'),
       onCreate: (database, version) async {
         await database.execute(
           "CREATE TABLE streakTable(id INTEGER PRIMARY KEY, name TEXT, length INTEGER, start INTEGER, col INTEGER)",
@@ -44,6 +44,7 @@ class DatabaseHandler {
 
     return List.generate(queryResult.length, (i) {
       return Streak(
+        id: queryResult[i]['id'],
         length: queryResult[i]['length'],
         name: queryResult[i]['name'],
         start: queryResult[i]['start'],
@@ -52,11 +53,11 @@ class DatabaseHandler {
     });
   }
 
-  Future<void> deleteStreak(String id) async {
+  Future<void> deleteStreak(int id) async {
     final db = await initializeDB();
     await db.delete(
       'streakTable',
-      where: "name = ?",
+      where: "id = ?",
       whereArgs: [id],
     );
     print("Deleted");

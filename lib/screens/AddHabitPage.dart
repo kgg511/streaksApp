@@ -90,7 +90,8 @@ class _AddHabitPageState extends State<AddHabitPage> {
               setState(() {
                 habitName = nameCon.text;
                 //print(habitName); //next: make an object with the data/insert into database
-                Streak s = Streak(length: 0, name: habitName, start: (new DateTime.now()).millisecondsSinceEpoch, col: screenPickerColor.value); //make streak object
+                int time_s = (new DateTime.now()).millisecondsSinceEpoch; // the time started and the id
+                Streak s = Streak(id: time_s, length: 0, name: habitName, start: time_s, col: screenPickerColor.value); //make streak object
                 List<Streak> streakTest = [s]; //put streak in a list for the insert method. Fix later
                 handler.insertStreak(streakTest);
                 print("insert called");

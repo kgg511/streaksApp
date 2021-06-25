@@ -11,7 +11,7 @@ class StreakButton extends StatelessWidget {
   //Color kActiveCardColor = Color(0xFF1D1E33);
   //Color kInactiveCardColor = Color(0xFF111328);
 
-  Color kUnpressedColor = Colors.yellowAccent.withOpacity(.05);
+  Color kUnpressedColor = Colors.yellowAccent.withOpacity(.2);
   Color kPressedButtonColor = Colors.yellowAccent;
 
   Color color;

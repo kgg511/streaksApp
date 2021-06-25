@@ -19,10 +19,12 @@ class StreakCard extends StatelessWidget {
     return Container(
       child: cardChild,
       margin: EdgeInsets.all(10.0),
+      /*
       decoration: BoxDecoration(
         color: Colors.grey,
         //borderRadius: BorderRadius.circular(10.0),
       ),
+       */
     );
 
   }
