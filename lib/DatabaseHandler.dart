@@ -53,6 +53,21 @@ class DatabaseHandler {
     });
   }
 
+  Future<List<Streak>> retrieveStreak(int id) async {
+    final Database db = await initializeDB();
+    final List<Map<String, Object>> queryResult = await db.query('streakTable', where: "id = ?", whereArgs: [id]);
+    return List.generate(queryResult.length, (i) {
+      return Streak(
+        id: queryResult[i]['id'],
+        length: queryResult[i]['length'],
+        name: queryResult[i]['name'],
+        start: queryResult[i]['start'],
+        col: queryResult[i]['col'],
+      );
+    });
+  }
+
+
   Future<void> deleteStreak(int id) async {
     final db = await initializeDB();
     await db.delete(
@@ -61,6 +76,16 @@ class DatabaseHandler {
       whereArgs: [id],
     );
     print("Deleted");
+  }
+
+  Future<void> updateStreak(Streak streak) async {
+    final db = await initializeDB();
+    await db.update(
+      'streakTable',
+      streak.toMap(),
+      where: "id = ?",
+      whereArgs: [streak.id],
+    );
   }
 
 
