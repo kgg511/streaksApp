@@ -63,9 +63,7 @@ class _StreakRowState extends State<StreakRow> {
           icons: [Icons.clear_outlined, Icons.check],
           onToggle: (index) async {
             print('switched to: $index');
-            List s = await handler.retrieveStreak(widget.id);
-            int len = s[0].length + 1;
-            handler.updateStreak(Streak(id: s[0].id, name: s[0].name, length: len, start: s[0].start, col: s[0].col ));
+            handler.incrementStreak(widget.id);
           },
         )
       ],
