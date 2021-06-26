@@ -20,7 +20,7 @@ class DatabaseHandler {
       join(path, 'streaks4.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE streakTable(id INTEGER PRIMARY KEY, name TEXT, length INTEGER, start INTEGER, last_checked INTEGER, col INTEGER)",
+          "CREATE TABLE streakTable(id INTEGER PRIMARY KEY, name TEXT, length INTEGER, start INTEGER, col INTEGER)",
         );
       },
       version: 1,
@@ -78,44 +78,22 @@ class DatabaseHandler {
     print("Deleted");
   }
 
-  Future<void> incrementStreak(int id, int curr) async {
+  Future<void> updateStreak(int id, int curr, int index) async { // index is the button clicked (x or check)
     final db = await initializeDB();
-    await db.rawUpdate('''
-    UPDATE streakTable 
-    SET length = case
-                  when length + 1, 
-    WHERE _id = ?
-    ''', ['Susan', 13, 1]);
-    await db.update(
-      'streakTable',
-      streak.toMap(),
-      where: "id = ?",
-      whereArgs: [id],
-    );
+    await db.rawUpdate('''UPDATE streakTable 
+    SET length = CASE
+    WHEN ? - start + 86400000 = length*86400000 AND ? = 0 THEN length - 1
+    WHEN ? - start - length = 0 AND ? = 1 THEN length + 1
+    ELSE length
+    END
+    WHERE id = ?
+    ''', [curr, index, curr, index, id]);
   }
 
 
   /*
-  set column_b = case
-                  when column_a = 1 then 'Y'
-                  else null
-                 end,
-  onpressed for each button
-
-  1. get current date, calculate difference between curr and start
-  2. if 1 more increment 1, if it is equal, decrease 1
-  curr - start
- 2 - 1 = 1
-
-  1 1
-  2
-  3
-
-  on pressed:
-
-
-
-
+  if (curr - start + 1) == length and index == 0(they have already checked that day and they click red): length -= 1
+  else if (curr - start + 1) - length = 1 and index == 1 (they have not checked that day and they clicked green): length += 1
 
    */
 

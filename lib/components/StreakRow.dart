@@ -56,14 +56,20 @@ class _StreakRowState extends State<StreakRow> {
           minWidth: 60.0,
           cornerRadius: 15.0,
           activeBgColors: [[Colors.red], [Colors.green]],
-          activeFgColor: Colors.white,
+          //activeFgColor: Colors.white,
           inactiveBgColor: Colors.grey,
-          inactiveFgColor: Colors.white,
+          //inactiveFgColor: Colors.white,
+          initialLabelIndex: 0 if
           totalSwitches: 2,
           icons: [Icons.clear_outlined, Icons.check],
           onToggle: (index) async {
             print('switched to: $index');
-            handler.incrementStreak(widget.id);
+            DateTime a = DateTime.now();
+            int curr_day = (new DateTime(a.year, a.month, a.day, 0, 0, 0, 0, 0)).millisecondsSinceEpoch;
+            handler.updateStreak(widget.id, curr_day, index);
+            List ab = await handler.retrieveStreak(widget.id);
+            widget.length = ab[0].length;
+            print(ab[0].toMap());
           },
         )
       ],

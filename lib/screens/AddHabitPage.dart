@@ -91,7 +91,7 @@ class _AddHabitPageState extends State<AddHabitPage> {
                 habitName = nameCon.text;
                 DateTime a = DateTime.now();
                 int time_s = (new DateTime(a.year, a.month, a.day, 0, 0, 0, 0, 0)).millisecondsSinceEpoch; // the time started and the id
-                Streak s = Streak(id: time_s, length: 0, name: habitName, start: time_s, col: screenPickerColor.value); //make streak object
+                Streak s = Streak(id: a.millisecondsSinceEpoch, length: 0, name: habitName, start: time_s, col: screenPickerColor.value); //make streak object
                 List<Streak> streakTest = [s]; //put streak in a list for the insert method. Fix later
                 handler.insertStreak(streakTest);
                 print("insert called");
