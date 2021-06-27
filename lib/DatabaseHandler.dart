@@ -97,5 +97,16 @@ class DatabaseHandler {
 
    */
 
+  //for editing streaks
+  Future<void> updateName(String n, int color, int id) async {//update name and color
+    //get st
+    final db = await initializeDB();
+    await db.rawUpdate('''UPDATE streakTable 
+    SET name = ?, col = ? 
+    WHERE id = ?
+    ''', [n, color, id]);
+    print("Edit completed");
+  }
 
 }
+

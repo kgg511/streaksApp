@@ -59,6 +59,7 @@ onpressed for each button
 
 
   //fetches the streaks from the database and sets the variable streaks to the result
+  //includes id, while the method refresh streaks does not
   FutureOr initializeStreaks(dynamic value) async {
     List<StreakRow> s = [];
     for (Streak a in await handler.retrieveStreaks()){
@@ -151,15 +152,71 @@ onpressed for each button
                     //direction: DismissDirection.endToStart,
                     key: UniqueKey(),
                   onDismissed: (DismissDirection direction){
-                    setState(() {
-                      //database removes item, then reinitialized
-                      handler.deleteStreak(streaks[index].id);
-                      print(streaks[index].id);
-                      initializeStreaks(6); //also needs to be in same place
-                    });
+                    if (direction == DismissDirection.endToStart){
+                      //if deleting
+                      setState(() {
+                        //database removes item, then reinitialized
+                        handler.deleteStreak(streaks[index].id);
+                        print(streaks[index].id);
+                        initializeStreaks(6); //also needs to be in same place
+                      });
+                    }
+                    else{
+                      //editing screen!
+                      print("Edit");
+                      AddHabitPage addHabit = AddHabitPage();
+                      addHabit.editHabit(streaks[index]);
+                      Navigator.pushNamed(context, AddHabitPage.id).then(initializeStreaks);
+
+                    }
+
                   },
                   secondaryBackground: slideLeftBackground(),
                   background: slideRightBackground(),
+
+                  /*
+                  confirmDismiss: (direction) async {
+                    if (direction == DismissDirection.endToStart) {
+                      //if red one, delete
+                      final bool res = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Text(
+                                  "Are you sure you want to delete ${itemsList[index]}?"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text(
+                                    "Cancel",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                FlatButton(
+                                  child: Text(
+                                    "Delete",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  onPressed: () {
+                                    //
+                                    setState(() {
+                                      itemsList.removeAt(index);
+                                    });
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                      return res;
+                    } else {
+                      //
+                    }
+                  },
+                  */
+
 
                 );
 

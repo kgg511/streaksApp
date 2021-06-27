@@ -16,10 +16,7 @@ class StreakButton extends StatelessWidget {
 
   Color color;
 
-  //Color(0xFF0E3311).withOpacity(0.5)
-//0xff
 
-//on press change colors!!!
   Widget build(BuildContext context) {
     return GestureDetector(
 

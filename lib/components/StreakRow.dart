@@ -37,7 +37,8 @@ class _StreakRowState extends State<StreakRow> {
     DateTime d = DateTime.now();
     int curr = (new DateTime(d.year, d.month, d.day, 0, 0, 0, 0, 0)).millisecondsSinceEpoch;
     if (curr - widget.start + 86400000 == widget.length*86400000){this.checked = 1;}
-    else{this.checked = 0;}
+    //if the length of the streak is already the max it could be, then it should have green check
+    else{this.checked = 0;} //else it should be unchecked
   }
   @override
   Widget build(BuildContext context) {
