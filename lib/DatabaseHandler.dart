@@ -27,20 +27,42 @@ class DatabaseHandler {
     );
   }
 
-  Future<int> insertStreak(List<Streak> streaks) async {
+
+  Future<bool> repeatedName(String name) async {
+    final Database db = await initializeDB();
+    final List<Map<String, Object>> queryResult = await db.query('streakTable', where: "name = ?", whereArgs: [name]);
+    if(queryResult.length !=0 || name == ""){
+      print("Item already exists or is empty");
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> insertStreak(List<Streak> streaks) async {
+    //changed to void since doesn't return anything if repeated name
+    //returns true if the streak was inserted successfully else false
+
     int result = 0;
     final Database db = await initializeDB();
 
-    for(var s in streaks){
-      result = await db.insert('streakTable', s.toMap());
+    //check if item already in database
+    bool repetition = await repeatedName(streaks[0].name);
+    if(repetition){
+      print("REPEATED");
+      return false;
     }
-    return result;
+    else{//if not already there, add item & return true
+      for(var s in streaks){
+        result = await db.insert('streakTable', s.toMap());
+      }
+      return true;
+    }
+
   }
 
   Future<List<Streak>> retrieveStreaks() async {
     final Database db = await initializeDB();
     final List<Map<String, Object>> queryResult = await db.query('streakTable');
-    //return queryResult.map((e) => Streak.fromMap(e)).toList();
 
     return List.generate(queryResult.length, (i) {
       return Streak(
@@ -53,7 +75,7 @@ class DatabaseHandler {
     });
   }
 
-  Future<List<Streak>> retrieveStreak(int id) async {
+  Future<List<Streak>> retrieveStreak(int id) async { //returns a streak based on its ID
     final Database db = await initializeDB();
     final List<Map<String, Object>> queryResult = await db.query('streakTable', where: "id = ?", whereArgs: [id]);
     return List.generate(queryResult.length, (i) {
@@ -67,6 +89,20 @@ class DatabaseHandler {
     });
   }
 
+  Future<List<Streak>> retrieveStreakN(int id) async { //returns a streak based on its NAME
+    final Database db = await initializeDB();
+    final List<Map<String, Object>> queryResult = await db.query('streakTable', where: "name = ?", whereArgs: [id]);
+
+    return List.generate(queryResult.length, (i) {
+      return Streak(
+        id: queryResult[i]['id'],
+        length: queryResult[i]['length'],
+        name: queryResult[i]['name'],
+        start: queryResult[i]['start'],
+        col: queryResult[i]['col'],
+      );
+    });
+  }
 
   Future<void> deleteStreak(int id) async {
     final db = await initializeDB();
@@ -90,23 +126,34 @@ class DatabaseHandler {
     ''', [curr, index, curr, index, id]);
   }
 
-
   /*
   if (curr - start + 1) == length and index == 0(they have already checked that day and they click red): length -= 1
   else if (curr - start + 1) - length = 1 and index == 1 (they have not checked that day and they clicked green): length += 1
 
    */
 
-  //for editing streaks
-  Future<void> updateName(String n, int color, int id) async {//update name and color
-    //get st
+  //to edit a streak
+  Future<bool> updateName(String n, int color, int id) async {//update name and color
     final db = await initializeDB();
-    await db.rawUpdate('''UPDATE streakTable 
+    bool repeated = await repeatedName(n);
+
+    //if suggested name is new, make change & return true
+    if(!repeated){
+      await db.rawUpdate('''UPDATE streakTable 
     SET name = ?, col = ? 
     WHERE id = ?
     ''', [n, color, id]);
-    print("Edit completed");
+      print("Edit completed");
+      return true;
+    }
+
+    else {//name already exists, return false, which will then trigger an error message
+      return false;
+    }
+
+
   }
+
 
 }
 
