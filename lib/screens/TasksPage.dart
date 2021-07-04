@@ -21,7 +21,7 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  List<StreakRow> streaks=[]; //reads the database to fill itself?
+  List<StreakRow> streaks = []; //reads the database to fill itself?
   DatabaseHandler handler; //database
 
   @override
@@ -29,7 +29,12 @@ class _TasksPageState extends State<TasksPage> {
     super.initState();
     this.handler = DatabaseHandler();
     this.handler.initializeDB(); //create database
-    initializeStreaks(6); //Gets streaks from database and puts them in the streaks list to be displayed
+    DateTime a = DateTime.now();
+    int curr_day = (new DateTime(a.year, a.month, a.day, 0, 0, 0, 0, 0))
+        .millisecondsSinceEpoch;
+    this.handler.expiresStreaks(curr_day);
+    initializeStreaks(
+        6); //Gets streaks from database and puts them in the streaks list to be displayed
     //it wanted a 'dynamic' value
 
     WidgetsFlutterBinding.ensureInitialized();
@@ -38,8 +43,9 @@ class _TasksPageState extends State<TasksPage> {
   //
   void refreshStreaks(dynamic value) async {
     List<StreakRow> s = [];
-    for (Streak a in await handler.retrieveStreaks()){
-      s.add(StreakRow(length: a.length, name: a.name, start: a.start, col: a.col));
+    for (Streak a in await handler.retrieveStreaks()) {
+      s.add(StreakRow(
+          length: a.length, name: a.name, start: a.start, col: a.col));
     }
     setState(() {
       streaks = s;
@@ -50,20 +56,19 @@ refresh: for all streaks
 1. get current date, calculate difference between curr and start + 1
 2.  if it is 2 more than length, reset length to 0 and start to curr
 3.
-
-onpressed for each button
-1. get current date, calculate difference between curr and start + 1
-2. if 1 more increment 1, if it is equal, decrease 1
-
  */
-
 
   //fetches the streaks from the database and sets the variable streaks to the result
   //includes id, while the method refresh streaks does not
   FutureOr initializeStreaks(dynamic value) async {
     List<StreakRow> s = [];
-    for (Streak a in await handler.retrieveStreaks()){
-      s.add(StreakRow(id: a.id, length: a.length, name: a.name, start: a.start, col: a.col));
+    for (Streak a in await handler.retrieveStreaks()) {
+      s.add(StreakRow(
+          id: a.id,
+          length: a.length,
+          name: a.name,
+          start: a.start,
+          col: a.col));
     }
     setState(() {
       streaks = s;
@@ -135,46 +140,45 @@ onpressed for each button
         title: Text('MY HABITS'),
       ),
       body: Column(
-        children: [//in order to display a list within a list, I embedded the column within another column
+        children: [
+          //in order to display a list within a list, I embedded the column within another column
 
-        //final List<String> entries = <String>['A', 'B', 'C'];
-        //final List<int> colorCodes = <int>[600, 500, 100];
+          //final List<String> entries = <String>['A', 'B', 'C'];
+          //final List<int> colorCodes = <int>[600, 500, 100];
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: streaks.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Dismissible(
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: streaks[index],
-                  ),
+                padding: const EdgeInsets.all(8),
+                itemCount: streaks.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Dismissible(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: streaks[index],
+                    ),
                     //direction: DismissDirection.endToStart,
                     key: UniqueKey(),
-                  onDismissed: (DismissDirection direction){
-                    if (direction == DismissDirection.endToStart){
-                      //if deleting
-                      setState(() {
-                        //database removes item, then reinitialized
-                        handler.deleteStreak(streaks[index].id);
-                        print(streaks[index].id);
-                        initializeStreaks(6); //also needs to be in same place
-                      });
-                    }
-                    else{
-                      //editing screen!
-                      print("Edit");
-                      AddHabitPage addHabit = AddHabitPage();
-                      addHabit.editHabit(streaks[index]);
-                      Navigator.pushNamed(context, AddHabitPage.id).then(initializeStreaks);
+                    onDismissed: (DismissDirection direction) {
+                      if (direction == DismissDirection.endToStart) {
+                        //if deleting
+                        setState(() {
+                          //database removes item, then reinitialized
+                          handler.deleteStreak(streaks[index].id);
+                          print(streaks[index].id);
+                          initializeStreaks(6); //also needs to be in same place
+                        });
+                      } else {
+                        //editing screen!
+                        print("Edit");
+                        AddHabitPage addHabit = AddHabitPage();
+                        addHabit.editHabit(streaks[index]);
+                        Navigator.pushNamed(context, AddHabitPage.id)
+                            .then(initializeStreaks);
+                      }
+                    },
+                    secondaryBackground: slideLeftBackground(),
+                    background: slideRightBackground(),
 
-                    }
-
-                  },
-                  secondaryBackground: slideLeftBackground(),
-                  background: slideRightBackground(),
-
-                  /*
+                    /*
                   confirmDismiss: (direction) async {
                     if (direction == DismissDirection.endToStart) {
                       //if red one, delete
@@ -216,12 +220,8 @@ onpressed for each button
                     }
                   },
                   */
-
-
-                );
-
-              }
-            ),
+                  );
+                }),
           ),
           BottomButton(
             buttonTitle: 'Add Habit',
@@ -229,13 +229,13 @@ onpressed for each button
               print("Grabbing streaks");
               List streakss = await handler.retrieveStreaks();
               print(streakss.length);
-              for(int i = 0; i < streakss.length; i++) {
+              for (int i = 0; i < streakss.length; i++) {
                 print(streakss[i].toMap());
               }
 
-              Navigator.pushNamed(context, AddHabitPage.id).then(initializeStreaks);
+              Navigator.pushNamed(context, AddHabitPage.id)
+                  .then(initializeStreaks);
               //https://www.nstack.in/blog/flutter-refresh-on-navigator-pop-or-go-back/
-
             },
           )
         ],
@@ -243,6 +243,3 @@ onpressed for each button
     );
   }
 }
-
-
-
