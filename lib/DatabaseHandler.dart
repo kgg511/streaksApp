@@ -122,7 +122,7 @@ class DatabaseHandler {
     await db.rawUpdate('''UPDATE streakTable 
     SET length = CASE
     WHEN ? - start + 86400000 = length*86400000 AND ? = 0 THEN length - 1
-    WHEN ? - start - length = 0 AND ? = 1 THEN length + 1
+    WHEN ? - start - (length*86400000) = 0 AND ? = 1 THEN length + 1
     ELSE length
     END
     WHERE id = ?
@@ -139,7 +139,7 @@ class DatabaseHandler {
     await db.rawUpdate('''UPDATE streakTable 
     Set length = 0,
     start = ?
-    WHERE ? - start + 86400000 - length >= 172800000
+    WHERE ? - start + 86400000 - length*86400000 >= 172800000
     ''', [curr, curr]);
   }
 
