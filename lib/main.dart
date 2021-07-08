@@ -4,6 +4,7 @@ import 'package:streaksApp/screens/TasksPage.dart';
 import 'package:streaksApp/screens/AddHabitPage.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:streaksApp/screens/CalendarPage.dart';
 
 import 'package:streaksApp/DatabaseHandler.dart';
 
@@ -23,6 +24,7 @@ class streaksApp extends StatelessWidget {
         //LoginScreen.id: (context) => LoginScreen(),
         TasksPage.id: (context) => TasksPage(),
         AddHabitPage.id: (context) => AddHabitPage(),
+        CalendarPage.id: (context) => CalendarPage(),
 
       },
 

@@ -156,6 +156,14 @@ refresh: for all streaks
 
  */
 
+  Future<void> changeStart(String name) async {
+    final db = await initializeDB();
+    await db.rawUpdate('''UPDATE streakTable 
+    Set start = start - 86400000,
+    WHERE name = ?
+    ''', [name]);
+  }
+
   //to edit a streak
   Future<bool> updateName(String n, int color, int id) async {
     //update name and color

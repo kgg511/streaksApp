@@ -7,6 +7,8 @@ import 'package:streaksApp/components/StreakButton.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 import 'package:streaksApp/Streak.dart';
+import 'package:streaksApp/main.dart';
+import 'package:streaksApp/screens/CalendarPage.dart';
 
 //this should be a row which holds text for the number of days, a streakcard, and a button
 
@@ -45,10 +47,23 @@ class _StreakRowState extends State<StreakRow> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        CircleAvatar(
+        /*CircleAvatar(
             backgroundColor: Color(widget.col),
             child: Text(widget.length.toString(), style: TextStyle(color: Colors.black),),
+        ), */
+
+        MaterialButton(
+          onPressed: () {
+            //navigate to the calendar page
+            Navigator.pushNamed(context, CalendarPage.id);
+          },
+          color: Color(widget.col),
+          textColor: Colors.white,
+          child: Text(widget.length.toString(), style: TextStyle(color: Colors.black),),
+          padding: EdgeInsets.all(16),
+          shape: CircleBorder(),
         ),
+
         Flexible(
           child: Text(
             widget.name,
