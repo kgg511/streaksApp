@@ -143,8 +143,6 @@ refresh: for all streaks
         children: [
           //in order to display a list within a list, I embedded the column within another column
 
-          //final List<String> entries = <String>['A', 'B', 'C'];
-          //final List<int> colorCodes = <int>[600, 500, 100];
           Expanded(
             child: ListView.builder(
                 padding: const EdgeInsets.all(8),

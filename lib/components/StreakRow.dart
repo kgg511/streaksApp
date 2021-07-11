@@ -4,14 +4,15 @@
 import 'package:flutter/material.dart';
 import 'package:streaksApp/components/StreakCard.dart';
 import 'package:streaksApp/components/StreakButton.dart';
+import 'package:streaksApp/screens/CalendarPage.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:streaksApp/DatabaseHandler.dart';
 import 'package:streaksApp/Streak.dart';
 import 'package:streaksApp/main.dart';
-import 'package:streaksApp/screens/CalendarPage.dart';
 
 //this should be a row which holds text for the number of days, a streakcard, and a button
 
+//now, it holds a database as well
 class StreakRow extends StatefulWidget {
 
   StreakRow({this.id, this.length, this.name, this.start, this.col}){}
@@ -21,12 +22,13 @@ class StreakRow extends StatefulWidget {
   var start; // starting date of the streak
   int col;
 
+
   @override
   _StreakRowState createState() => _StreakRowState();
 }
 
 class _StreakRowState extends State<StreakRow> {
-  DatabaseHandler handler; //database
+  DatabaseHandler handler; //database holding the streaks
   int checked;
 
   @override
@@ -34,7 +36,7 @@ class _StreakRowState extends State<StreakRow> {
     // TODO: implement initState
     super.initState();
     this.handler = DatabaseHandler();
-    this.handler.initializeDB(); //create database
+    this.handler.initializeDB(); //create streak database
 
     DateTime d = DateTime.now();
     int curr = (new DateTime(d.year, d.month, d.day, 0, 0, 0, 0, 0)).millisecondsSinceEpoch;
@@ -94,10 +96,10 @@ class _StreakRowState extends State<StreakRow> {
               print(curr_day);
               handler.updateStreak(widget.id, curr_day, index);
 
-              List ab = await handler.retrieveStreak(widget.id);
-              print(ab[0].toMap());
+              Streak ab = await handler.retrieveStreak(widget.id);
+              print(ab.toMap());
               setState(() {
-                widget.length = ab[0].length;
+                widget.length = ab.length;
                 DateTime d = DateTime.now();
                 int curr = (new DateTime(d.year, d.month, d.day, 0, 0, 0, 0, 0)).millisecondsSinceEpoch;
                 if (curr - widget.start + 86400000 == widget.length*86400000){this.checked = 1;}
