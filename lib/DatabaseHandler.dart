@@ -100,8 +100,19 @@ class DatabaseHandler {
       );
     });
   }
-  ///////////////////
 
+  ///////////////////popp
+//dateTable(streakId INTEGER, date INTEGER)",
+  Future<List<int>> retrieveDates(int id) async {//returns a list of dates for given streak
+    //returns a streak based on its NAME
+    final Database db = await initializeDB();
+    final List<Map<String, Object>> queryResult =
+    await db.query('dateTable', where: "streakId = ?", whereArgs: [id]);
+
+    return List.generate(queryResult.length, (i) {
+      return queryResult[i]['date'];
+    });
+  }
 
   Future<bool> repeatedName(String name) async {
     final Database db = await initializeDB();
@@ -228,15 +239,7 @@ refresh: for all streaks
     }
   }
 
-  /////////////////////////methods for datetable
 
-  //method to add one date for one streak: If they check box
-
-
-  //method to delete one date for one streak: if they uncheck box
-
-
-  //method to delete all dates for one streak: If the streak is deleted entirely
 
 
 

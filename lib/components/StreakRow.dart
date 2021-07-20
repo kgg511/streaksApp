@@ -30,6 +30,7 @@ class StreakRow extends StatefulWidget {
 class _StreakRowState extends State<StreakRow> {
   DatabaseHandler handler; //database holding the streaks
   int checked;
+  CalendarPageState calendar = CalendarPageState(); //allows us to tell the calendar which streak to gather dates from
 
   @override
   void initState() {
@@ -57,7 +58,9 @@ class _StreakRowState extends State<StreakRow> {
         MaterialButton(
           onPressed: () {
             //navigate to the calendar page
+            calendar.setDates(widget.id); //get the dates for the given widget using calendar object
             Navigator.pushNamed(context, CalendarPage.id);
+            //send it the name/id of the streak
           },
           color: Color(widget.col),
           textColor: Colors.white,
