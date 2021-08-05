@@ -28,9 +28,39 @@ class StreakRow extends StatefulWidget {
 }
 
 class _StreakRowState extends State<StreakRow> {
+
+
   DatabaseHandler handler; //database holding the streaks
   int checked;
   CalendarPageState calendar = CalendarPageState(); //allows us to tell the calendar which streak to gather dates from
+
+  ShapeBorder shape(){
+    //returns the shape of the border based on the level of the perosn
+    if(widget.length > 3){
+      return CircleBorder();
+
+    }
+    else if(widget.length > 2){//no icon
+      return CircleBorder();
+
+    }
+    else if(widget.length > 1){
+      //return StadiumBorder();
+      return BeveledRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+      );
+
+    }
+    else if(widget.length > 0){
+      //return OutlineInputBorder(); rectangle that is outlined
+      return StadiumBorder();
+    }
+    else{
+      //return RoundedRectangleBorder(); rectangle
+      return RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0));
+    }
+  }
 
   @override
   void initState() {
@@ -56,17 +86,47 @@ class _StreakRowState extends State<StreakRow> {
         ), */
 
         MaterialButton(
+          height: 40.0,
+
           onPressed: () {
-            //navigate to the calendar page
-            calendar.setDates(widget.id); //get the dates for the given widget using calendar object
-            Navigator.pushNamed(context, CalendarPage.id);
-            //send it the name/id of the streak
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CalendarPage(streakNum: widget.id),//give name of streak to calendarpage
+                ),
+
+
+            //calendar.giveId(widget.id); //get the dates for the given widget using calendar object
+            //Navigator.pushNamed(context, CalendarPage.id);
+            );
           },
           color: Color(widget.col),
           textColor: Colors.white,
-          child: Text(widget.length.toString(), style: TextStyle(color: Colors.black),),
-          padding: EdgeInsets.all(16),
-          shape: CircleBorder(),
+          padding: EdgeInsets.all(2.0),
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Visibility(
+                visible: widget.length > 3, //this condition should be identical to the one connected to the final shape
+                child: Icon(
+                  Icons.flash_on_outlined,
+                  color: Colors.yellow,
+                  size: 55.0,
+                ),
+              ),
+              Text(
+                //"12345",
+                widget.length.toString(),
+                style: TextStyle(color: Colors.black,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ],
+          ),
+
+          elevation: 4,
+          shape: shape(),
+
         ),
 
         Flexible(

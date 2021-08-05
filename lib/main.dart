@@ -29,9 +29,18 @@ class streaksApp extends StatelessWidget {
       },
 
       theme: ThemeData.light().copyWith(
-        primaryColor: Color(0xFF0A0E21),
+        primaryColor: Colors.grey,
         scaffoldBackgroundColor: Color(0xFFFFFFFF),
+        //accentColor: Colors.blueAccent
       ),
+
+      //-accentColor: foreground color for which
+      //-primaryColor: Color given to background for major parts of app.
+      //theme: ThemeData(
+      //  primaryColor: Colors.red,
+      //  accentColor: Colors.blue,
+      //)
+//Color(0xFF0A0E21)
 
     );
   }

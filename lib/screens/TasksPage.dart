@@ -71,6 +71,7 @@ refresh: for all streaks
           col: a.col));
     }
     setState(() {
+
       streaks = s;
     });
   }
@@ -133,6 +134,10 @@ refresh: for all streaks
     );
   }
 
+  //new Center(
+  //  child: condition == true ? new Container() : new Container()
+  //)
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +147,6 @@ refresh: for all streaks
       body: Column(
         children: [
           //in order to display a list within a list, I embedded the column within another column
-
           Expanded(
             child: ListView.builder(
                 padding: const EdgeInsets.all(8),
@@ -221,20 +225,39 @@ refresh: for all streaks
                   );
                 }),
           ),
-          BottomButton(
-            buttonTitle: 'Add Habit',
-            onTap: () async {
-              print("Grabbing streaks");
-              List streakss = await handler.retrieveStreaks();
-              print(streakss.length);
-              for (int i = 0; i < streakss.length; i++) {
-                print(streakss[i].toMap());
-              }
 
-              Navigator.pushNamed(context, AddHabitPage.id)
-                  .then(initializeStreaks);
-              //https://www.nstack.in/blog/flutter-refresh-on-navigator-pop-or-go-back/
-            },
+          Visibility(
+            visible: streaks.length < 1,
+            child: Column(
+              children: <Widget>[
+                Text("Looks like you don't have any habits.",
+                  style: kTaskText,
+                ),
+                Text("Why not start one?",
+                  style: kTaskText,
+                ),
+                Image.asset('images/arrow.png'),
+              ]
+            ),
+          ),
+
+          Container(
+
+            child: BottomButton(
+              buttonTitle: 'Add Habit',
+              onTap: () async {
+                print("Grabbing streaks");
+                List streakss = await handler.retrieveStreaks();
+                print(streakss.length);
+                for (int i = 0; i < streakss.length; i++) {
+                  print(streakss[i].toMap());
+                }
+
+                Navigator.pushNamed(context, AddHabitPage.id)
+                    .then(initializeStreaks);
+                //https://www.nstack.in/blog/flutter-refresh-on-navigator-pop-or-go-back/
+              },
+            ),
           )
         ],
       ),
